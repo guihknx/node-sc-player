@@ -1,8 +1,178 @@
+@import url(font-awesome.css);
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  background: #ddd;
+  position: absolute;
+  top: 0;
+  right:0;
+  bottom: 0;
+  left: 0;
 }
 
-a {
-  color: #00B7FF;
+.center {
+   width: 600px;
+   height: 200px;
+   position: absolute;
+   left: 50%;
+   top: 60%; 
+   margin-left: -300px;
+   margin-top: -150px;
+}
+
+#album {
+  float: left;
+  display: inline-block;
+  width: 150px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+.song
+{
+	width: 80%;
+	/* height: 16px; */
+	left: 35px;
+	position: absolute;
+	bottom: 75px;
+}
+#content {
+  background: #FFF;
+  display: inline-block;
+  float: left;
+  width: 440px;
+  height: 150px;
+}
+
+.row {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  padding-top: 20px;
+  color: #555;
+  position: relative;
+}
+#lift {
+  margin-top: -25px;
+}
+.row span{
+		margin-right:20px;
+}
+#playlist{
+
+	height: 100%;
+	width: 98.4%;
+	display: block;
+	position: absolute;
+	top: 75%;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+#playlist ul{
+	list-style: none;
+}
+#playlist ul li a{
+	background: #34495E;
+	color: #67809F;
+	text-decoration: none;
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #2574A9;
+}
+#playlist ul li a:hover{
+	background: #22313F;
+	color: #fff;
+	transition: All .3s ease-in-out;
+
+}
+#playlist ul li a figure{
+float: left;
+width: 45px;
+height: 50px;
+margin-right: 15px;
+}
+#play {
+	left: 15px;
+	position: absolute;
+	top: 45px;
+	font-size: 20px;
+	line-height: 19px;
+	width: 20px;
+
+}
+#stop {
+	left: 45px;
+	position: absolute;
+	top: 45px;
+	font-size: 20px;
+	line-height: 19px;
+	width: 20px;
+}
+#progress {
+	background: #22313F;
+	color: #555;
+	display: inline-block;
+	width: 80%;
+	height: 10px;
+	left: 15px;
+	position: absolute;
+	border: 1px solid;
+	border-radius: 10px;
+}
+#progress .loaded{
+	background: #19B5FE;
+	height: 100%;
+	width: 11%;
+	position: absolute;
+	z-index: 99;
+	left: 0;
+	border-radius: 50px;
+}
+#lift.row{
+	width: 100%;	
+	margin: 0 auto;
+	display: table;
+	position: relative;
+}
+#total {
+  color: #83BFE5;
+  display: inline-block;
+  background: #83BFE5;
+  margin-left: -4px;
+  width: 70px;
+  height: 16px;
+}
+#time {
+	position: absolute;
+	right: 15px;
+	font-size: 12px;
+	font-weight: 100;
+	line-height: 15px;
+}
+.playing{
+	text-align: left;
+	margin-left: 15px;
+	font-weight: bold;
+}
+.desc{
+	font-weight: normal;
+	width: 100%;
+}
+#speaker {
+  height: 15px;
+  width: 15px;
+  float: right;
+  padding-right: 17px;
+  margin-top: -17px;
+}
+
+#play:hover {
+  cursor: pointer;
 }
