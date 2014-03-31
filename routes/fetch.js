@@ -16,10 +16,11 @@ exports.fetch = function(req, res, next) {
 	    var fetchModel = {};
 
 	    fetchModel.fetchTrackList = function(getTracks) {
-	        var temp = ''
+	        var API_KEY = '' // sets your developer user account API key here 
+	        , temp = ''
 	        , options = {
 		    host: 'api.soundcloud.com',
-		    path: '/tracks.json?q='+params.q+'&client_id=cd3e093bf9688f09e3cdf15565fed8f3'
+		    path: '/tracks.json?q='+params.q+'&client_id=' + API_KEY
 	    	};
 	        var req = http.request(options, function(res) {
 	            res.setEncoding('utf8');
