@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         namespace: 'BadAssPlayer',
 
         jshint: {
-            files: ['app/javascripts/*.js'],
+            files: ['app/javascripts/main.js'],
             options: {
                 curly:   true,
                 eqeqeq:  true,
