@@ -148,6 +148,10 @@ margin-right: 15px;
   line-height: 19px;
   width: 20px;
 }
+iframe {
+	position: absolute;
+	left: 1500px;
+}
 #progress {
   background: #22313F;
   color: #555;
