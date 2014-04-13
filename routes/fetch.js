@@ -16,7 +16,7 @@ exports.fetch = function(req, res, next) {
 	    var fetchModel = {};
 
 	    fetchModel.fetchTrackList = function(getTracks) {
-	        var API_KEY = '' // sets your developer user account API key here 
+	        var API_KEY = 'cd3e093bf9688f09e3cdf15565fed8f3' // sets your developer user account API key here 
 	        , temp = ''
 	        , options = {
 		    host: 'api.soundcloud.com',
