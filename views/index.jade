@@ -1,63 +1,44 @@
 extends layout
 block content
-    .center
-        span#album
+        .center
+          span#album
             img(src='http://placehold.it/350x350')
-        span#content
+          span#content
             .row
-                .playing
-                    .track='Daft Punk - Arround The World'
-                    .desc='lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos'
+              .playing
+                .track
+                .desc
             #lift.row
-                span.fa.fa-play#play
-                span.fa.fa-stop#stop
-                span#progress
-                    .loaded
-                span#time='01:24'
-
-
+              span#play.fa.fa-play
+              span#stop.fa.fa-stop
+              span#search.fa.fa-search
+              span#add.fa.fa-plus
+              input.find-input(type='text', placeholder='Search a music...')
+              input.add-input(type='text', placeholder='Paste a track url...')    
+              span#progress
+                .loaded
+              span#time 00:00
             .row
-                .song
-                    img(id='speaker', src='http://accurate-voting.org/wp-content/uploads/2010/03/200px-Speaker_Icon_gray-sm.png')
-        span#playlist
-            ul
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')     
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')    
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')     
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')     
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')
-                li
-                    a(href='#', title='') A track
-                        figure
-                            img(src='http://placehold.it/3450x350', class='item')
+              .song
+                img#speaker(src='http://accurate-voting.org/wp-content/uploads/2010/03/200px-Speaker_Icon_gray-sm.png')
+            script(type='text/x-handlebars-template', id='some-template')
+
+                span#playlist
+                    ul
+                        {{#tracks}}
+                        li
+                          a.track-item(href='#',data-permalink='{{uri}}' title='{{title}}')
+                            span
+                                {{fullName tracks}}
+                            figure
+                              img.item(src='{{artwork_url}}')
+
+                        {{/tracks}}
+
+        iframe.sc-widget(src='http://w.soundcloud.com/player/?url=//api.soundcloud.com/users/724640')
+        script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
+        script(type='text/javascript', src='javascripts/scripts.min.js')
+        script(src='http://w.soundcloud.com/player/api.js')
+        
+        
+        script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js')
