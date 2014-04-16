@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         application: {
             namespace: 'BadAssPlayer',
             dirs: {
-                app: 'app',
+                app: 'public',
                 front: '../public'
             },    
         }
@@ -59,8 +59,15 @@ module.exports = function (grunt) {
               nonull: true,
             },
         },
+        compass: {
+            dist: {
+                options: {
+                    config: '<%= application.dirs.app %>/stylesheets/config.rb'
+                }
+            }
+        },
         watch: {
-            files: ['<%= application.dirs.app %>/javascripts/*.js'],
+            files: ['<%= application.dirs.app %>/javascripts/*.js', '<%= application.dirs.app %>/stylesheets/*.scss'],
             tasks: 'auto'
         },
         uglify: {
@@ -77,12 +84,12 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('auto', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('auto', ['jshint', 'compass', 'concat', 'uglify']);
 
 
 
     grunt.registerTask('release', ['jshint']);
     grunt.loadNpmTasks('grunt-contrib-concat'); 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-
+    grunt.loadNpmTasks('grunt-contrib-compass');
 };
