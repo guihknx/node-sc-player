@@ -7,10 +7,18 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        namespace: 'BadAssPlayer',
+        application: {
+            namespace: 'BadAssPlayer',
+            dirs: {
+                app: 'app',
+                front: '../public'
+            },    
+        }
+
+        ,
 
         jshint: {
-            files: ['app/javascripts/main.js'],
+            files: ['<%= application.dirs.app %>/javascripts/main.js'],
             options: {
                 curly:   true,
                 eqeqeq:  true,
@@ -46,22 +54,22 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             missing: {
-              src: ['app/javascripts/*.js'],
-              dest: '../public/javascripts/scripts.js',
+              src: ['<%= application.dirs.app %>/javascripts/*.js'],
+              dest: '<%= application.dirs.front %>/javascripts/scripts.js',
               nonull: true,
             },
         },
         watch: {
-            files: ['app/javascripts/*.js'],
+            files: ['<%= application.dirs.app %>/javascripts/*.js'],
             tasks: 'auto'
         },
         uglify: {
             options: {
-                banner: '/*! <%= pkg.namespace %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+                banner: '/*! <%= application.namespace %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
             },
             dist: {
                 files: {
-                    '../public/javascripts/scripts.min.js': ['../public/javascripts/scripts.js']
+                    '<%= application.dirs.front %>/javascripts/scripts.min.js': ['<%= application.dirs.front %>/javascripts/scripts.js']
                 }
             }
         },
