@@ -47,15 +47,16 @@
   updateTrack: function() {
     Player.engine.player.getCurrentSound(function(track) {
       if(!track) {
-        $('#album').find('img').attr('src', '');
+        $('#album').find('img').attr('src', 'http://placehold.it/350x350');
         $('.track').text('');
-        $('.desc').text('No artist found :(');
+        $('.desc').text('Error: verify URL');
         return;
       }
       $('#album').find('img').attr('src', track.artwork_url );
       $('.track').text(track.user.username);
       $('.desc').text(track.title);
       Player.engine.player.current = track;
+      $('.working').fadeOut();
     });
     
     Player.engine.player.getDuration(function(value){
@@ -96,6 +97,7 @@
 
     $('.find-input').on('keyup',function(e){
       if( e.keyCode == 13){
+        $('.working').fadeIn();
         $('#playlist').empty().slideToggle();
         var search_query = $('.find-input').val();
         Player.engine.fetchTracks(encodeURIComponent(search_query), function(tracks){
@@ -112,13 +114,12 @@
 
     $('.add-input').on('keyup',function(e){
       if( e.keyCode == 13){
-
-
+          $('.working').fadeIn();
           Player.engine.extractIdFormLink($(this).val(), function(id){
             console.log(id);
-          })
+          });
         
-        Player.engine.setTrack($(this).val());
+          Player.engine.setTrack($(this).val());
       }
     });
     $('#search').click(function(){ 
@@ -163,6 +164,7 @@
       event.preventDefault();
       Player.engine.setTrack( $(this).data('permalink') );
     });
+    $('.working').fadeOut();
   },
   trimWords : function(text, maxLength) {
     var ret = text;
