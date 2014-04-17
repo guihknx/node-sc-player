@@ -14,6 +14,7 @@
         this.control();
         this.progress();
 
+
     },
     control: function(){
         this.player.bind(SC.Widget.Events.READY, function(eventData) { 
@@ -56,9 +57,13 @@
       $('.track').text(track.user.username);
       $('.desc').text(track.title);
       Player.engine.player.current = track;
-      $('.working').fadeOut();
+      $('.working').fadeOut(function(){
+            if( $('#album').find('img').attr('src') == undefined ){
+                $('#album').find('img').attr('src', 'http://placehold.it/350x350&text=' + $('.desc').text() )
+            }
+      });
     });
-    
+
     Player.engine.player.getDuration(function(value){
       Player.engine.player.duration = value;
     });
@@ -66,22 +71,26 @@
     Player.engine.player.isPaused(function(bool){
       Player.engine.player.getPaused = bool;
     });
+
     // setTimeout(function(){
     //     Player.engine.player.toggle();
     // }, 2000);
     
   },
   buttons: function(){
+    setTimeout(function(){
+                Player.engine.handleState();
+            }, 500)
     jQuery('#playlist div i').on('click', function(){
       $('#playlist').slideToggle();
     })
     $('#play').click(function(){ 
       Player.engine.player.toggle(); 
     });    
-    $('.backward').click(function(){ 
+    $('#prev').click(function(){ 
       Player.engine.player.prev(); 
     });  
-    $('.forward').click(function(){ 
+    $('#next').click(function(){ 
       Player.engine.player.next(); 
     });
     $('#add').click(function(){ 
@@ -162,9 +171,14 @@
 
     $('.track-item').on('click', function(event){
       event.preventDefault();
+      var pased_uri = $(this).data('permalink').split('/');
+      history.pushState({track: pased_uri[4]}, null, '#'+pased_uri[4])
       Player.engine.setTrack( $(this).data('permalink') );
     });
-    $('.working').fadeOut();
+    $('.working').fadeOut(function(){
+       // setTimeout(function(){}, 500)
+        Player.engine.scroller();
+    });
   },
   trimWords : function(text, maxLength) {
     var ret = text;
@@ -190,7 +204,7 @@
     $('#progress').mousemove(function(e){
       Player.engine.pos = (e.pageX-Player.engine.leftPos.left);
     });
-
+    console.log(Player.engine.pos);
     $('#progress').click(function(){
       $('.loaded').css('width',Player.engine.pos+"px");
       var seek = Player.engine.player.duration*(Player.engine.pos/Player.engine.containerWidth);
@@ -207,8 +221,32 @@
   },
   padNumber: function(n){
     return ( n > 9 ) ? n : "0" + n;
-  }
+  },
+  scroller: function(){
+    $('#playlist ul').slimScroll({
+        height: '250px',
+        railVisible: true,
+        alwaysVisible: false
+    });
+    // Fix broken images, see later
+    $('img').each(function(){
+        if( $(this).attr('src') == '' ){
+            $(this).attr('src', 'http://placehold.it/350x350')
+        }
+    });
+  },
+  handleState : function(){
+    // var state = history.state;
+    // if( state.track != '' ){
+    //     Player.engine.setTrack('http://api.soundcloud.com/tracks/'+state.track+'&callback=true');
+    // }
+    console.log($('body').data('track'))
 
+    if( $('body').data('track') != '' ){
+        Player.engine.setTrack('http://api.soundcloud.com/tracks/'+ $('body').data('track')+'&callback=true');
+    }
+    
+  },
   };
 }(jQuery, window, console));
 
