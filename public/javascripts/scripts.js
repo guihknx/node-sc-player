@@ -2815,43 +2815,43 @@ window.onload=function(){
     _that: this,
     _locked: true,
     init : function () {
-      this.buttons();
-      this.player  =  SC.Widget($('iframe.sc-widget')[0]);
-      this.leftPos = $('#progress').offset();
-      this.containerWidth = $('#progress').width();
-      this.pos;
-      this.control();
-      this.progress();
+        this.buttons();
+        this.player  =  SC.Widget($('iframe.sc-widget')[0]);
+        this.leftPos = $('#progress').offset();
+        this.containerWidth = $('#progress').width();
+        this.pos;
+        this.control();
+        this.progress();
 
     },
     control: function(){
-    this.player.bind(SC.Widget.Events.READY, function(eventData) { 
-      Player.engine.updateTrack();  
-    });
-    
+        this.player.bind(SC.Widget.Events.READY, function(eventData) { 
+          Player.engine.updateTrack();  
+        });
+        
 
-    this.player.bind(SC.Widget.Events.PLAY_PROGRESS, function(e) {
-      Player.engine.formatTime(e.currentPosition, function(r){
-        $('#time').text(Player.engine.padNumber(r.m)+':'+Player.engine.padNumber(r.s));
-      });
+        this.player.bind(SC.Widget.Events.PLAY_PROGRESS, function(e) {
+            Player.engine.formatTime(e.currentPosition, function(r){
+                $('#time').text(Player.engine.padNumber(r.m)+':'+Player.engine.padNumber(r.s));
+            });
 
-      if( e.relativePosition < 0.003 ) {    
-        Player.engine.updateTrack(); 
-      }
-      $('.loaded').css('width', ( e.relativePosition*100)+"%");
+            if( e.relativePosition < 0.003 ) {    
+                Player.engine.updateTrack(); 
+            }
+            $('.loaded').css('width', ( e.relativePosition*100)+"%");
 
-      if( !$("#play").hasClass('fa-pause') ) {
-        $("#play")
-        .removeClass('fa-play')
-        .addClass('fa-pause'); 
-      }
-    });
-    this.player.bind(SC.Widget.Events.PAUSE, function(e) {   
-      Player.engine.updateTrack();
-      $("#play")
-      .addClass('fa-play')
-      .removeClass('fa-pause');  
-    });
+            if( !$("#play").hasClass('fa-pause') ) {
+                $("#play")
+                .removeClass('fa-play')
+                .addClass('fa-pause'); 
+            }
+        });
+        this.player.bind(SC.Widget.Events.PAUSE, function(e) {   
+            Player.engine.updateTrack();
+            $("#play")
+            .addClass('fa-play')
+            .removeClass('fa-pause');  
+        });
   },
   updateTrack: function() {
     Player.engine.player.getCurrentSound(function(track) {
@@ -2906,7 +2906,8 @@ window.onload=function(){
     $('.find-input').on('keyup',function(e){
       if( e.keyCode == 13){
         $('#playlist').empty().slideToggle();
-        Player.engine.fetchTracks($('.find-input').val(), function(tracks){
+        var search_query = $('.find-input').val();
+        Player.engine.fetchTracks(encodeURIComponent(search_query), function(tracks){
           var track = tracks;
           Player.engine.handleBars(track);
           $.each(track, function(index, val){

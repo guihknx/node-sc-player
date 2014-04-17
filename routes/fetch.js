@@ -20,7 +20,7 @@ exports.fetch = function(req, res, next) {
 	        , temp = ''
 	        , options = {
 		    host: 'api.soundcloud.com',
-		    path: '/tracks.json?q='+params.q+'&client_id=' + API_KEY
+		    path: '/tracks.json?q='+params.q.replace(/ /g, '+')+'&client_id=' + API_KEY
 	    	};
 	        var req = http.request(options, function(res) {
 	            res.setEncoding('utf8');
