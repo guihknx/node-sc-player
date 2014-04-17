@@ -1,5 +1,6 @@
 extends layout
 block content
+      .app_body(data-track=formId)
         .center
           span#album
             img(src='http://placehold.it/350x350')
@@ -9,18 +10,23 @@ block content
                 .track
                 .desc
             #lift.row
-              span#play.fa.fa-play
-              span#stop.fa.fa-stop
-              span#search.fa.fa-search
-              span#add.fa.fa-plus
+              .buttons
+                span#prev.fa.fa-fast-backward 
+                span#play.fa.fa-play
+                span#next.fa.fa-fast-forward 
+                span#stop.fa.fa-stop
+                span#search.fa.fa-search
+                span#add.fa.fa-plus
+
               input.find-input(type='text', placeholder='Search a music...')
-              input.add-input(type='text', placeholder='Paste a track url...')    
+              input.add-input(type='text', placeholder='Paste a track url...')
+              img.working(src='/images/loading.gif')    
               span#progress
                 .loaded
               span#time 00:00
             .row
               .song
-                img#speaker(src='http://accurate-voting.org/wp-content/uploads/2010/03/200px-Speaker_Icon_gray-sm.png')
+               //span.fa.fa-volume-up 
             script(type='text/x-handlebars-template', id='some-template')
 
                 span#playlist
@@ -34,11 +40,3 @@ block content
                               img.item(src='{{artwork_url}}')
 
                         {{/tracks}}
-
-        iframe.sc-widget(src='http://w.soundcloud.com/player/?url=//api.soundcloud.com/users/724640')
-        script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
-        script(type='text/javascript', src='javascripts/scripts.min.js')
-        script(src='http://w.soundcloud.com/player/api.js')
-        
-        
-        script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js')
