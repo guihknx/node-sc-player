@@ -38,8 +38,8 @@ app.get(/^\/public\/(.*)/, function (req, res) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/fetch', fetch.fetch);
-app.get(/\/post\/([^\/]+)\/?/,routes.index );
-app.use(/\/post\/([^\/]+)\/?/, express.static(__dirname + '../public'));
+app.get(/\/track\/([^\/]+)\/?/,routes.index );
+app.use(/\/track\/([^\/]+)\/?/, express.static(__dirname + '../public'));
 
 
 http.createServer(app).listen(app.get('port'), function(){
