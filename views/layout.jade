@@ -4,6 +4,13 @@ html
     title= title
     meta(charset='UTF-8')
     meta(description=description)
+    meta(property='og:title', content='#{trackInfo.title}')
+    meta(property='og:image', content='#{trackInfo.photo}')
+    meta(property='og:description', content='#{trackInfo.desc}')
+    meta(property='og:url', content='#{trackInfo.url}')
+ 
+
+
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Sintony:700')
     link(href='http://fonts.googleapis.com/css?family=Sintony:400', rel='stylesheet', type='text/css')
@@ -11,7 +18,7 @@ html
   body(data-track=trackID)
     block content
 
-    iframe.sc-widget(src='http://w.soundcloud.com/player/?url=//api.soundcloud.com/users/724640')
+    iframe.sc-widget(src='http://w.soundcloud.com/player/?url=//api.soundcloud.com/users/#{trackID}')
     script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
     script(type='text/javascript', src='/javascripts/scripts.min.js')
     script(src='http://w.soundcloud.com/player/api.js')
