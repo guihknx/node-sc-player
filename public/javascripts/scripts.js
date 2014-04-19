@@ -3207,6 +3207,52 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
   });
 
 })(jQuery);
+;(function($) {
+    $.fn.littleTooltip = function(options) {
+ 
+        var settings = $.extend(
+            {}, 
+            $.fn.littleTooltip.defaults, 
+            options
+        );
+
+        $(this).hover(function(e){
+
+
+
+            $("body").append('<span class="'+settings.selector+'"><span>');
+            
+            $("."+settings.selector)
+                .css({
+                    "top"  :"20px",
+                    "left" : (e.pageX) + "px"
+                })
+                .fadeIn("fast");                      
+        },
+        function(){
+            $("."+settings.selector).remove();
+        });
+
+        $(this).mousemove(function(e){
+            $("."+settings.selector)
+                .css({
+                    "top"  : "20px",
+                    "left" : (e.pageX) + "px",
+                    'position' : 'relative'
+                });
+        });
+
+    };
+
+    $.fn.littleTooltip.defaults = {
+        xOffset : 10,
+        yOffset : 30,
+        selector : 'tooltip'
+    };
+
+})(jQuery);
+
+        
 ;var MusicPlayer = function(){
 	this.init();
 };
@@ -3350,6 +3396,7 @@ window.onload=function(){
     
   },
   buttons: function(){
+    $('#progress').littleTooltip();
     setTimeout(function(){
                 Player.engine.handleState();
             }, 500)
@@ -3444,7 +3491,8 @@ window.onload=function(){
     $('.track-item').on('click', function(event){
       event.preventDefault();
       var pased_uri = $(this).data('permalink').split('/');
-      history.pushState({track: pased_uri[4]}, null, '#'+pased_uri[4])
+      history.pushState("", document.title, "/");
+      history.pushState({track: pased_uri[4]}, null, '/track/'+pased_uri[4])
       Player.engine.setTrack( $(this).data('permalink') );
     });
     $('.working').fadeOut(function(){
@@ -3475,9 +3523,18 @@ window.onload=function(){
   progress: function(){
     $('#progress').mousemove(function(e){
       Player.engine.pos = (e.pageX-Player.engine.leftPos.left);
+
+        var seek = Player.engine.player.duration*(Player.engine.pos/Player.engine.containerWidth);
+        Player.engine.formatTime(seek, function(ms){
+            $('.tooltip').text(Player.engine.padNumber(ms.m)+':'+Player.engine.padNumber(ms.s))
+        });
+
     });
     console.log(Player.engine.pos);
     $('#progress').click(function(){
+        $("#play")
+        .removeClass('fa-play')
+        .addClass('fa-pause'); 
       $('.loaded').css('width',Player.engine.pos+"px");
       var seek = Player.engine.player.duration*(Player.engine.pos/Player.engine.containerWidth);
       Player.engine.player.seekTo(seek);
