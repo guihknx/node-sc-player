@@ -38,7 +38,8 @@ app.get(/^\/public\/(.*)/, function (req, res) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/fetch', fetch.fetch);
-app.get(/\/track\/([^\/]+)\/?/,routes.index );
+app.get(/\/track\/([^\/]+)\/?/, routes.index );
+app.get('*', routes.index );
 app.use(/\/track\/([^\/]+)\/?/, express.static(__dirname + '../public'));
 
 
