@@ -3224,8 +3224,8 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
             
             $("."+settings.selector)
                 .css({
-                    "top"  :"20px",
-                    "left" : (e.pageX) + "px"
+                    "top"  :"15px",
+                    "left" : (e.pageX - 21)  + "px"
                 })
                 .fadeIn("fast");                      
         },
@@ -3236,8 +3236,8 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
         $(this).mousemove(function(e){
             $("."+settings.selector)
                 .css({
-                    "top"  : "20px",
-                    "left" : (e.pageX) + "px",
+                    "top"  : "15px",
+                    "left" : (e.pageX - 21)  + "px",
                     'position' : 'relative'
                 });
         });
