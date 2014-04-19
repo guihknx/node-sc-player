@@ -279,3 +279,10 @@ p {
     margin: 10px 0px;
     font-family: arial;
 }
+.tooltip{
+  background: #000;
+  border: none;
+  color:#fff;
+  border-radius: 4px;
+  padding: 3px;
+}
