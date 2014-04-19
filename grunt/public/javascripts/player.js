@@ -78,6 +78,7 @@
     
   },
   buttons: function(){
+    $('#progress').littleTooltip();
     setTimeout(function(){
                 Player.engine.handleState();
             }, 500)
@@ -172,7 +173,8 @@
     $('.track-item').on('click', function(event){
       event.preventDefault();
       var pased_uri = $(this).data('permalink').split('/');
-      history.pushState({track: pased_uri[4]}, null, '#'+pased_uri[4])
+      history.pushState("", document.title, "/");
+      history.pushState({track: pased_uri[4]}, null, '/track/'+pased_uri[4])
       Player.engine.setTrack( $(this).data('permalink') );
     });
     $('.working').fadeOut(function(){
@@ -203,9 +205,18 @@
   progress: function(){
     $('#progress').mousemove(function(e){
       Player.engine.pos = (e.pageX-Player.engine.leftPos.left);
+
+        var seek = Player.engine.player.duration*(Player.engine.pos/Player.engine.containerWidth);
+        Player.engine.formatTime(seek, function(ms){
+            $('.tooltip').text(Player.engine.padNumber(ms.m)+':'+Player.engine.padNumber(ms.s))
+        });
+
     });
     console.log(Player.engine.pos);
     $('#progress').click(function(){
+        $("#play")
+        .removeClass('fa-play')
+        .addClass('fa-pause'); 
       $('.loaded').css('width',Player.engine.pos+"px");
       var seek = Player.engine.player.duration*(Player.engine.pos/Player.engine.containerWidth);
       Player.engine.player.seekTo(seek);
