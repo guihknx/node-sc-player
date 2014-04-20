@@ -27,6 +27,10 @@ exports.index = function(req, res){
     });
     req.end();
   }
+	if (req.url === '/favicon.ico') {
+		r.writeHead(200, {'Content-Type': 'image/x-icon'} );
+		return r.end();
+	}
 
   getTrackdetails(req.params[0], function(data, info) {
   	info = JSON.parse(info.replace('undefined', ''));
