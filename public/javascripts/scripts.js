@@ -3339,7 +3339,13 @@ window.onload=function(){
           Player.engine.updateTrack();  
         });
         
-
+        this.player.bind(SC.Widget.Events.FINISH, function(e){
+           $('.loaded').css('width', 0);
+           $('#time').text('00:00').
+            $("#play")
+            .addClass('fa-play')
+            .removeClass('fa-pause');  
+        });
         this.player.bind(SC.Widget.Events.PLAY_PROGRESS, function(e) {
             Player.engine.formatTime(e.currentPosition, function(r){
                 $('#time').text(Player.engine.padNumber(r.m)+':'+Player.engine.padNumber(r.s));
@@ -3492,6 +3498,7 @@ window.onload=function(){
       event.preventDefault();
       var pased_uri = $(this).data('permalink').split('/');
       history.pushState("", document.title, "/");
+      document.title = $(this).find('span').text();
       history.pushState({track: pased_uri[4]}, null, '/track/'+pased_uri[4])
       Player.engine.setTrack( $(this).data('permalink') );
     });
