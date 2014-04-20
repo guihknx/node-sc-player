@@ -10,7 +10,7 @@ exports.index = function(req, res){
 		return r.end();
 	}
 	console.log(req.params[0], 'AHMED!!!')
-	if ( req.params[0] !=- undefined ) {
+	if ( req.params[0] !== undefined ) {
 	  function getTrackdetails(_id, callback){
   	var API_KEY = 'cd3e093bf9688f09e3cdf15565fed8f3'
   	, options = {
