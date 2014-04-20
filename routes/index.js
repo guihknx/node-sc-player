@@ -31,23 +31,36 @@ exports.index = function(req, res){
 		r.writeHead(200, {'Content-Type': 'image/x-icon'} );
 		return r.end();
 	}
+	if ( req.params[0] != undefined ) {
+	  getTrackdetails(req.params[0], function(data, info) {
+	  	info = JSON.parse(info.replace('undefined', ''));
+		res.render('index', { 
+			title: 'BadAssPlayer'
+			, description: 'Stream music form soudncloud with nodejs!'
+			, trackID: req.params[0]
+			, trackInfo: {
+				title: info.title,
+				photo: info.artwork_url,
+				desc: info.description,
+				permalink: info.uri,
+				url: 'track/' + req.params[0]
+			}
+		});
+	  });
+	}else{
+		res.render('index', { 
+			title: 'BadAssPlayer'
+			, description: 'Stream music form soudncloud with nodejs!'
+			, trackID: ''
+			, trackInfo: {
+				title:'',
+				photo:'',
+				desc: '',
+				permalink: '',
+				url: 'track/'
+			}
+		});
 
-  getTrackdetails(req.params[0], function(data, info) {
-  	info = JSON.parse(info.replace('undefined', ''));
-	res.render('index', { 
-		title: 'BadAssPlayer'
-		, description: 'Stream music form soudncloud with nodejs!'
-		, trackID: req.params[0]
-		, trackInfo: {
-			title: info.title,
-			photo: info.artwork_url,
-			desc: info.description,
-			permalink: info.uri,
-			url: 'track/' + req.params[0]
-		}
-	});
-  });
-
-
+	}
 };
 
