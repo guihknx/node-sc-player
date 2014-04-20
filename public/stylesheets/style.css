@@ -199,7 +199,7 @@ iframe {
 #progress .loaded{
   background: #19B5FE;
   height: 100%;
-  width: 11%;
+  width: 0%;
   position: absolute;
   z-index: 99;
   left: 0;
