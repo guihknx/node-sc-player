@@ -5,7 +5,13 @@
 
 exports.index = function(req, res){
 
-  function getTrackdetails(_id, callback){
+	if (req.url === '/favicon.ico') {
+		r.writeHead(200, {'Content-Type': 'image/x-icon'} );
+		return r.end();
+	}
+	console.log(req.params[0], 'AHMED!!!')
+	if ( req.params[0] !=- undefined ) {
+	  function getTrackdetails(_id, callback){
   	var API_KEY = 'cd3e093bf9688f09e3cdf15565fed8f3'
   	, options = {
 	    host: 'api.soundcloud.com',
@@ -27,11 +33,6 @@ exports.index = function(req, res){
     });
     req.end();
   }
-	if (req.url === '/favicon.ico') {
-		r.writeHead(200, {'Content-Type': 'image/x-icon'} );
-		return r.end();
-	}
-	if ( req.params[0] != undefined ) {
 	  getTrackdetails(req.params[0], function(data, info) {
 	  	info = JSON.parse(info.replace('undefined', ''));
 		res.render('index', { 
