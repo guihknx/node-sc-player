@@ -3341,10 +3341,24 @@ window.onload=function(){
         
         this.player.bind(SC.Widget.Events.FINISH, function(e){
            $('.loaded').css('width', 0);
-           $('#time').text('00:00').
+           $('#time').text('00:00');
             $("#play")
             .addClass('fa-play')
             .removeClass('fa-pause');  
+
+            
+            Player.engine.setTrack( $('.current').next().find('a').data('permalink') );
+
+            // guess not will work in IE cuz it already tested, and when i remove class i can use content bellow
+            var currentItem = $(".current").removeClass('current');
+            if(currentItem.next() && currentItem.next().length){
+              currentItem.next().addClass('current');
+            }else{
+              currentItem.prev().siblings(":first").addClass('current');
+            }
+            setTimeout(function() {
+              $("#play").click();
+            }, 5000)
         });
         this.player.bind(SC.Widget.Events.PLAY_PROGRESS, function(e) {
             Player.engine.formatTime(e.currentPosition, function(r){
@@ -3475,6 +3489,7 @@ window.onload=function(){
           Player.engine.updateTrack();
         }
       });
+
     }
 
   },
@@ -3490,20 +3505,23 @@ window.onload=function(){
         tracks: dataTracks
     }; 
     Handlebars.registerHelper('fullName', function() {
-     return Player.engine.trimWords( this.title , 50);
+     return Player.engine.trimWords( this.title , 150);
     });
     $('.center').append(template(data));
 
     $('.track-item').on('click', function(event){
+      if( $('.current').length > 0 ){
+         $('li').removeClass('current');
+      }     
       event.preventDefault();
       var pased_uri = $(this).data('permalink').split('/');
       history.pushState("", document.title, "/");
       document.title = $(this).find('span').text();
       history.pushState({track: pased_uri[4]}, null, '/track/'+pased_uri[4])
       Player.engine.setTrack( $(this).data('permalink') );
+      $(this).parent().addClass('current');
     });
     $('.working').fadeOut(function(){
-       // setTimeout(function(){}, 500)
         Player.engine.scroller();
     });
   },
