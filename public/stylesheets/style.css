@@ -182,12 +182,15 @@ text-align: left;
   width: 20px;
 }*/
 .current{
+  transition: All .3s ease-in-out;
   font-weight: bold;
 }
 .current a{
+  transition: All .3s ease-in-out;
   background: #3498db !important;
 }
 .current span{
+  transition: All .3s ease-in-out;
     color: #fff;
 }
 iframe {
